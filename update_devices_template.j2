@@ -26,13 +26,13 @@ action:
               minutes: 30
               seconds: 0
               milliseconds: 0
-  # After the update, check if schedule.auto_update_devices is still "on", if not stop automation
-  - choose:
-      - conditions:
-          - condition: state
-            entity_id: schedule.auto_update_devices
-            state: "off"
-        sequence:
-          - stop: "Schedule is off now, stopping automation"
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: schedule.auto_update_devices
+                    state: "off"
+                sequence:
+                  - stop: "Schedule is off now, stopping automation"
+    alias: "Update {{ device }}"
 {% endfor %}
 mode: single
