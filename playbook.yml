@@ -1,0 +1,13 @@
+---
+- name: Generate Home Assistant Device Updates
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Generate update automation file using template
+      template:
+        src: update_devices_template.j2
+        dest: generated_update_automation.yaml

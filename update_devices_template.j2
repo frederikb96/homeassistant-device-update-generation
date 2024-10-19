@@ -1,0 +1,31 @@
+alias: Home Assistant Device Updates
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - schedule.auto_update_devices
+    to: "on"
+condition: []
+action:
+{% for device in devices %}
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: update.{{ device }}
+            state: "on"
+        sequence:
+          - service: update.install
+            target:
+              entity_id: update.{{ device }}
+          - wait_for_trigger:
+              - platform: state
+                entity_id: update.{{ device }}
+                to: "off"
+            timeout:
+              hours: 0
+              minutes: 30
+              seconds: 0
+              milliseconds: 0
+    alias: "Update {{ device }}"
+{% endfor %}
+mode: single

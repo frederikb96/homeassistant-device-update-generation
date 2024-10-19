@@ -1,0 +1,6 @@
+---
+devices:
+  - light_bathroom
+  - light_kitchen
+  - light_livingroom
+  - switch_kitchen
